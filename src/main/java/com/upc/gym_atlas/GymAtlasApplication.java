@@ -1,6 +1,8 @@
 package com.upc.gym_atlas;
 
 import com.upc.gym_atlas.entidades.Cliente;
+import com.upc.gym_atlas.negocio.IClienteServicio;
+import com.upc.gym_atlas.repositorio.IClienteRepositorio;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

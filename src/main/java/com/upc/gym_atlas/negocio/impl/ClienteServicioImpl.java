@@ -1,10 +1,16 @@
 package com.upc.gym_atlas.negocio.impl;
 
+import com.upc.gym_atlas.entidades.Cliente;
+import com.upc.gym_atlas.negocio.IClienteServicio;
+import com.upc.gym_atlas.repositorio.IClienteRepositorio;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ClienteServicioImpl {
+@Service
+public class ClienteServicioImpl implements IClienteServicio {
     private final IClienteRepositorio clienteRepositorio;
 
     // contador simple para generar CLI0001, CLI0002, ...
@@ -32,12 +38,12 @@ public class ClienteServicioImpl {
 
     @Override
     public Optional<Cliente> obtenerPorId(String id) {
-        return clienteRepositorio.findById(id);
+        return clienteRepositorio.findById(Integer.valueOf(id));
     }
 
     @Override
     public Cliente actualizar(String id, Cliente datos) {
-        return clienteRepositorio.findById(id)
+        return clienteRepositorio.findById(Integer.valueOf(id))
                 .map(existente -> {
                     existente.setNombre(datos.getNombre());
                     existente.setDni(datos.getDni());
@@ -50,6 +56,6 @@ public class ClienteServicioImpl {
 
     @Override
     public void eliminar(String id) {
-        clienteRepositorio.deleteById(id);
+        clienteRepositorio.deleteById(Integer.valueOf(id));
     }
 }

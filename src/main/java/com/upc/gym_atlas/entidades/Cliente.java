@@ -1,8 +1,16 @@
 package com.upc.gym_atlas.entidades;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.*;
 
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Cliente {
     @Id
     @Column(name = "id_cliente", nullable = false, unique = true, length = 8)
