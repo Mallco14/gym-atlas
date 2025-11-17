@@ -1,55 +1,65 @@
 package com.upc.gym_atlas.negocio.impl;
 
+import com.upc.gym_atlas.entidades.Cliente;
+import com.upc.gym_atlas.negocio.IClienteServicio;
+import com.upc.gym_atlas.repositorio.IClienteRepositorio;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class ClienteServicioImpl {
+@Service
+@Transactional
+public class ClienteServicioImpl implements IClienteServicio {
     private final IClienteRepositorio clienteRepositorio;
-
-    // contador simple para generar CLI0001, CLI0002, ...
-    private final AtomicInteger secuencia = new AtomicInteger(1);
 
     public ClienteServicioImpl(IClienteRepositorio clienteRepositorio) {
         this.clienteRepositorio = clienteRepositorio;
     }
-    private String generarCodigoCliente() {
-        int valor = secuencia.getAndIncrement();
-        return "CLI" + String.format("%04d", valor);
-    }
+
     @Override
     public Cliente registrar(Cliente cliente) {
-        // Generamos el id solo si viene vacío
-        if (cliente.getId() == null || cliente.getId().isBlank()) {
-            cliente.setId(generarCodigoCliente());
-        }
         return clienteRepositorio.save(cliente);
     }
+
     @Override
     public List<Cliente> listar() {
         return clienteRepositorio.findAll();
     }
 
     @Override
-    public Optional<Cliente> obtenerPorId(String id) {
-        return clienteRepositorio.findById(id);
+    public Optional<Cliente> obtenerPorId(Integer idCliente) {
+        return clienteRepositorio.findById(idCliente);
     }
 
     @Override
-    public Cliente actualizar(String id, Cliente datos) {
-        return clienteRepositorio.findById(id)
+    public Optional<Cliente> obtenerPorDni(String dni) {
+        return clienteRepositorio.findByDni(dni);
+    }
+
+    @Override
+    public Cliente actualizar(Integer idCliente, Cliente datos) {
+        return clienteRepositorio.findById(idCliente)
                 .map(existente -> {
-                    existente.setNombre(datos.getNombre());
                     existente.setDni(datos.getDni());
+                    existente.setNombres(datos.getNombres());
+                    existente.setApellidos(datos.getApellidos());
+                    existente.setEmail(datos.getEmail());
                     existente.setTelefono(datos.getTelefono());
-                    existente.setActivo(datos.isActivo());
+                    existente.setFechaNacimiento(datos.getFechaNacimiento());
+                    existente.setDireccion(datos.getDireccion());
+                    existente.setContactoEmergencia(datos.getContactoEmergencia());
+                    existente.setNotasMedicas(datos.getNotasMedicas());
+                    existente.setFotoUrl(datos.getFotoUrl());
+                    //
                     return clienteRepositorio.save(existente);
                 })
                 .orElse(null);
     }
 
     @Override
-    public void eliminar(String id) {
-        clienteRepositorio.deleteById(id);
+    public void eliminar(Integer idCliente) {
+        clienteRepositorio.deleteById(idCliente);
     }
 }

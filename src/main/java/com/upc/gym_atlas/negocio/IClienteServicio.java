@@ -6,9 +6,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IClienteServicio {
-    Cliente registrar(Cliente cliente);          // Crear (genera código CLI0001...)
-    List<Cliente> listar();                     // Listar todos
-    Optional<Cliente> obtenerPorId(String id);  // Buscar por id
-    Cliente actualizar(String id, Cliente datos);
-    void eliminar(String id);
+    Cliente registrar(Cliente cliente);
+
+    List<Cliente> listar();
+
+    Optional<Cliente> obtenerPorId(Integer idCliente);
+
+    Optional<Cliente> obtenerPorDni(String dni);
+
+    Cliente actualizar(Integer idCliente, Cliente datos);
+
+    void eliminar(Integer idCliente);
 }
