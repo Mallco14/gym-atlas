@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -51,10 +53,12 @@ public class Cliente {
     private String fotoUrl;
 
     // Dejas que la BD ponga el CURRENT_TIMESTAMP, por eso insertable=false/updatable=false
-    @Column(name = "created_at", insertable = false, updatable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    // Podrías manejarla con triggers o en la app; por ahora solo la mapeamos
-    @Column(name = "updated_at", insertable = false, updatable = false)
+    // Se puede manejar con triggers o en la app; por ahora solo la mapeamos
+    @UpdateTimestamp
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }

@@ -1,12 +1,16 @@
 package com.upc.gym_atlas;
 
+import com.upc.gym_atlas.controller.TestController;
 import com.upc.gym_atlas.entidades.Cliente;
 import com.upc.gym_atlas.negocio.IClienteServicio;
 import com.upc.gym_atlas.repositorio.IClienteRepositorio;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.crypto.spec.OAEPParameterSpec;
 import java.time.LocalDate;
@@ -21,7 +25,7 @@ public class GymAtlasApplication {
         SpringApplication.run(GymAtlasApplication.class, args);
 	}
 
-    @Bean
+    /*@Bean
     CommandLineRunner init(IClienteServicio clienteServicio) {
         return args -> {
 
@@ -45,5 +49,5 @@ public class GymAtlasApplication {
                 System.out.println("Listado de clientes:");
                 clienteServicio.listar().forEach(System.out::println);
         };
-    }
+    }*/
 }
