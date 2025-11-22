@@ -1,30 +1,64 @@
 package com.upc.gym_atlas.entidades;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-@Entity
-@AllArgsConstructor
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@AllArgsConstructor
+@Entity
+@Table(name="clientes")
 public class Cliente {
+
     @Id
-    @Column(name = "id_cliente", nullable = false, unique = true, length = 8)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_cliente")
+    private Integer idCliente;   // SERIAL PRIMARY KEY
 
-    @Column(name = "nombre", nullable = false, length = 100)
-    private String nombre;
-
-    @Column(name = "dni", nullable = false, length = 8)
+    @Column(name = "dni", length = 8, nullable = false, unique = true)
     private String dni;
+
+    @Column(name = "nombres", length = 100, nullable = false)
+    private String nombres;
+
+    @Column(name = "apellidos", length = 100, nullable = false)
+    private String apellidos;
+
+    @Column(name = "email", length = 100)
+    private String email;
 
     @Column(name = "telefono", length = 15)
     private String telefono;
 
-    @Column(name = "activo", nullable = false)
-    private boolean activo;
+    @Column(name = "fecha_nacimiento")
+    private LocalDate fechaNacimiento;
+
+    @Column(name = "direccion", columnDefinition = "TEXT")
+    private String direccion;
+
+    @Column(name = "contacto_emergencia", length = 200)
+    private String contactoEmergencia;
+
+    @Column(name = "notas_medicas", columnDefinition = "TEXT")
+    private String notasMedicas;
+
+    @Column(name = "foto_url", length = 255)
+    private String fotoUrl;
+
+    // Dejas que la BD ponga el CURRENT_TIMESTAMP, por eso insertable=false/updatable=false
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    // Se puede manejar con triggers o en la app; por ahora solo la mapeamos
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }
