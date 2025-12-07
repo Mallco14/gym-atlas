@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface MembresiaRepositorio  extends JpaRepository<Membresia, Integer> {
 
     //Listar todas las membresias de un cliente
