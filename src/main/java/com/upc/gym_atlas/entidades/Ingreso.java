@@ -35,8 +35,9 @@ public class Ingreso {
     @Column(name = "hora_ingreso", nullable = false)
     private LocalTime horaIngreso;
 
-    @Column(name = "recepcionista", length = 100)
-    private String recepcionista;
+    @ManyToOne(optional = false)
+    @JoinColumn(name="id_usuario")
+    private UsuariosSistema recepcionista;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

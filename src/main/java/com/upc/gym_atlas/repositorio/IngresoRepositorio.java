@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface IngresoRepositorio {
+public interface IngresoRepositorio extends JpaRepository<Ingreso, Integer> {
     // Todos los ingresos de un cliente
     List<Ingreso> findByCliente_IdCliente(Integer idCliente);
 
